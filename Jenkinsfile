@@ -1,4 +1,5 @@
-'''goovy
+##  Jenkins freestyle project CI CD pipelines Groovy script with "Multiple Stages"
+
 pipeline {
     agent any
 
