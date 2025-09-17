@@ -1,0 +1,12 @@
+CC=gcc
+CFLAGS=-Wall
+BIN=bin/main
+
+all: $(BIN)
+
+$(BIN): src/main.c
+	mkdir -p bin
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rf bin
