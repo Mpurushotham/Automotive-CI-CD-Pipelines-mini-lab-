@@ -4,13 +4,13 @@ Automotive CI-CD-Pipelines mini lab project structure to illustrate how to setup
 # 🚗 Mini Project: Automotive CI/CD Pipeline in Jenkins
 
 # Tech Stack
-*	•	Jenkins (automation server)
-*	•	Gerrit/GitHub (source control)
-*	•	Docker (isolated build environment)
-*	•	Make + C/C++ (compilation)
-*	•	Python (test automation, log parsing)
-*	•	Bash/PowerShell (infra scripting)
-*	•	Artifact storage (Jenkins workspace or Azure blob simulation)
+*		Jenkins (automation server)
+*		Gerrit/GitHub (source control)
+*		Docker (isolated build environment)
+*		Make + C/C++ (compilation)
+*		Python (test automation, log parsing)
+*		Bash/PowerShell (infra scripting)
+*		Artifact storage (Jenkins workspace or Azure blob simulation)
 
 ## project structure >
 
