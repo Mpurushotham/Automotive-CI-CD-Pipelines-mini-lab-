@@ -143,7 +143,7 @@ stage('Post-Deployment Monitoring') {
 
 ## End-to-End Workflow Diagram
 
- [!TIP] Developer → Git Commit → Jenkins → Build (Docker) → Static Scan (SonarQube) → Unit Tests (pytest) → Deploy to K8s → Monitor (Prometheus/Grafana)
+ > [!TIP] Developer → Git Commit → Jenkins → Build (Docker) → Static Scan (SonarQube) → Unit Tests (pytest) → Deploy to K8s → Monitor (Prometheus/Grafana)
 
  
 
