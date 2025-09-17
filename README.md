@@ -15,15 +15,16 @@ Automotive CI-CD-Pipelines mini lab project structure to illustrate how to setup
 ## project structure >
 
 automotive-ci-demo/
-│── src/
-│   └── main.c            # Simple C program (simulating ECU software)
-│   └── Makefile          # Build rules
-│── tests/
-│   └── test_main.py      # Python unit test
-│── scripts/
-│   └── deploy.sh         # Simulated hardware deployment
-│   └── parse_logs.py     # Log parsing script
-│── Jenkinsfile           # CI/CD pipeline definition
+
+*	│── src/
+*	│   └── main.c            # Simple C program (simulating ECU software)
+*	│   └── Makefile          # Build rules
+*	│── tests/
+*	│   └── test_main.py      # Python unit test
+*	│── scripts/
+*	│   └── deploy.sh         # Simulated hardware deployment
+*	│   └── parse_logs.py     # Log parsing script
+*	│── Jenkinsfile           # CI/CD pipeline definition
 
 
 
