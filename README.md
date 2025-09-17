@@ -26,6 +26,9 @@ automotive-ci-demo/
 *	│   └── parse_logs.py     # Log parsing script
 *	│── Jenkinsfile           # CI/CD pipeline definition
 
+# 🔹 Workflow Diagram (End-to-End) >
+
+##   Code → Gerrit → Jenkins → Build → Unit Test → Docker Build → Deploy to Hardware → Parse Logs → Store Artifacts
 
 
 <img width="1327" height="800" alt="image" src="https://github.com/user-attachments/assets/7d87f92b-e12e-49ef-81b3-dc1d114676d4" />
