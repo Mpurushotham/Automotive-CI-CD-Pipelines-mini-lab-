@@ -1,0 +1,107 @@
+# Jenkinsfile
+pipeline {
+    agent any
+    environment {
+        REGISTRY = "docker.io/your-docker-username"
+        IMAGE_NAME = "ecu-app"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your-username/ecu-app.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} .'
+            }
+        }
+        stage('Static Analysis') {
+            steps {
+                sh 'sonar-scanner -Dsonar.projectKey=ecu-app -Dsonar.host.url=http://sonarqube:9000'
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                sh 'docker run $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} pytest tests/'
+            }
+        }
+        stage('Push to Registry') {
+            steps {
+                sh 'docker push $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER}'
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f k8s/deployment.yaml'
+                sh 'kubectl rollout status deployment/ecu-app'
+            }
+        }
+        stage('Post-Deployment Logs') {
+            steps {
+                sh 'kubectl logs -l app=ecu-app --tail=50'
+            }
+        }
+    }
+}
+
+# Dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]
+
+# requirements.txt
+flask
+pytest
+
+# app.py
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello from ECU App CI/CD Pipeline!"
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
+
+# tests/test_app.py
+def test_home():
+    assert 1 + 1 == 2
+
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecu-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ecu-app
+  template:
+    metadata:
+      labels:
+        app: ecu-app
+    spec:
+      containers:
+      - name: ecu-app
+        image: docker.io/your-docker-username/ecu-app:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecu-app-service
+spec:
+  selector:
+    app: ecu-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
